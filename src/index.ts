@@ -4,7 +4,7 @@ interface Cache {
 }
 class Raw extends String {}
 
-export class El extends HTMLElement {
+class El extends HTMLElement {
   static els: Record<string, El> = {}
   static stash: Record<string, string> = {}
   static tags: Record<string, boolean> = {}
@@ -23,12 +23,17 @@ export class El extends HTMLElement {
   readonly _cache: Cache = { d: {}, clear: () => (this._cache.d = {}) }
   _queued?: number
 
-  created?: () => void
-  mounted?: () => void
-  unmounted?: () => void
-  styles?: (params: Function) => string
+  created() {}
+  mounted() {}
+  unmounted() {}
 
-  render?: (html: Function) => string
+  styles(_params: Function) {
+    return ''
+  }
+
+  render(_html: Function): string {
+    return ''
+  }
 
   constructor() {
     super()
@@ -323,3 +328,7 @@ export class El extends HTMLElement {
       : String(v || '').replace(/[<>'"]/g, (c) => `&#${c.charCodeAt(0)}`)
   }
 }
+
+export { El }
+
+export default El
